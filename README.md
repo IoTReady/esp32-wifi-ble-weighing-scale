@@ -24,7 +24,7 @@ As shown below the final output is in Serial data output form. This is basically
 ![adc](https://github.com/IoTReady/weighing_scale_firmware/blob/master/design/Single_scale_v3_kicad/docs/hx711_adc.jpg "HX711 ADC")
 
 ## ESP32
-The brains of our weighing scale esp32 wroom32 module is a WiFi SoC which collects weight data from the ADC circuit and outputs the final processed data via a digital display and WiFi to the selected servers for maintaing inventories or doing any data analysis.
+The brains of our weighing scale esp32 wroom32 module is a BLE plus WiFi SoC which collects weight data from the ADC circuit and outputs the final processed data via a digital display and WiFi to the selected servers for maintaing inventories or doing any data analysis.
 
 ![esp32](https://github.com/IoTReady/weighing_scale_firmware/blob/master/design/Single_scale_v3_kicad/docs/esp32_circuit.jpg "esp32")
 
@@ -37,6 +37,42 @@ This is what the final PCB looks like:
 ![pcb_back](https://github.com/IoTReady/weighing_scale_firmware/blob/master/design/Single_scale_v3_kicad/docs/Back_side_3D_PCB.png "pcb_back")
 
 # Firmware
+
+## Features
+- 24 bit HX711 as ADC
+- Any 4 wire load cell
+- BLE communication
+- Tare button
+- Battery level monitor
+- MAX7219 driven 7-segment display
+- OTA (to be hosted from local network)
+- Console setting of tare value and sensor calibration
+
+### Weight Calculation
+The HX711 is a great match for weighing use-cases. The 24 bit ADC is designed specifically for weight measurements and is directly interfaceable with load sensors and weigh bridges. There is no programming needed for the internal registers. All controls to the HX711 are through the pins. The HX711 component handles everything necessary for conversion to calibration. For more details, find the HX711 datasheet [here](https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf)
+
+### Factors for weight calculation/conversion
+There are two major factors to consider towards accurate calculation:
+1. Tare Value (OFFSET): In weighment applications it is important to be able to reset the output value to zero if and when needed. In the firmware however, it is particularly important to understand the ADC output at zero. Any value higher or lower than this ADC value would result in positive or negative weight hereafter. Almost all weighing scales will provide a button for the users to return the current weight to zero. This is used to round off any extra weight that needs not be accounted, for example the container. In this application, the tare button has been assigned to GPIO19 on the ESP32.
+  The auto-tare feature in the application tares the system at startup, such that the weighing scale always starts with a zero value. This eliminates human error. Make sure that there are no items placed on the platform and even the bottom of the scale is not in contact with any object at the time of starting up the machine until the display shows 0.
+  
+3. Calibration value (SCALE): The calibration value is the multiplication factor that needs to be multiplied to the ADC output value in order to get the real-time weight out of it in the units needed. This calibration value will be different for all individual load cells, hence it is important that all weighing machines go through a calibration procedure before they are shipped.
+
+This application provides a simple method to set/calculate the above mentioned Tare and Calibration values:
+- Start by placing the scale in a stable platform and environment. Please choose area with minimum air currents and vibration levels.
+- Connect your computer to the ESP32 controller's UART0 using an FTDI connector.
+- You will need a software to access the serial communication happening over the UART lines. For example, [PuTTY](https://www.putty.org/)
+- While the program is flashed and running on the ESP32, press 'm' and hit Enter. You will be provided a menu using which you can access the tare and calibration features.
+- For calibration, follow the further following steps:
+  - You need to select a test value weight. This weight must be within the scale constraint and approximately 50% of the upper capacity. This should also be a known weight that you should possess.
+  - Make sure that there are no items placed on the platform and even the bottom of the scale is not in contact with any object.
+  - Make sure the console shows 0 weight. If not, press the tare button so the console shows 0.
+  - Place the known selected weight on the platform of the weighing scale and view the weight on the console.
+  - Follow the instructions to either change the calibration value or select the current selected calibration value if the weight shown on console is correct.
+  - Repeat until the weight is correct.
+  - Save
+
+
 
 # Applications
 This weighing scale is designed keeping in mind sharing of data over the internet. So, any application where we need to capture weight of things and maintain a record for any use, we can integrate this device in that system.
