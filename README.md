@@ -72,7 +72,25 @@ This application provides a simple method to set/calculate the above mentioned T
   - Repeat until the weight is correct.
   - Save
 
+### BLE Characteristics:
+| Service / Characteristics Name | UUID Handle                          | Properties | Description   |
+|--------------------------------|--------------------------------------|------------|---------------|
+| Device State Service           | 000000ff-0000-1000-8000-00805f9b34fb | Service    | -             |
+| Weight Data                    | 0000ff00-0000-1000-8000-00805f9b34fb | Read       | Weight in kgs |
 
 
+| Service / Characteristics Name  | UUID Handle                          | Properties  | Description                                                                                                       | Size            | Data Type        |
+|---------------------------------|--------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------|-----------------|------------------|
+| System Settings Service         | 000000ee-0000-1000-8000-00805f9b34fb | Service     | -                                                                                                                 | -               | -                |
+| Device ID Characteristic        | 0000ee00-0000-1000-8000-00805f9b34fb | Read        | Read Device ID                                                                                                    | Length: 12      | String           |
+| WiFi SSID  Characteristic       | 0000ee01-0000-1000-8000-00805f9b34fb | Read/Write  | WiFi SSID configured with the device                                                                              | Max Length: 32  | String           |
+| WiFi Password Characteristic    | 0000ee02-0000-1000-8000-00805f9b34fb | Read/Write  | WiFi Password configured with the device                                                                          | Max Length: 32  | String           |
+| OTA IP Characteristic           | 0000ee03-0000-1000-8000-00805f9b34fb | Read/Write  | Read/Write the IP of OTA host                                                                                     | Max Length: 100 | String           |
+| OTA Port Characteristic         | 0000ee04-0000-1000-8000-00805f9b34fb | Read/Write  | Read/Write the Port of OTA host server                                                                            | Max Length: 100 | String           |
+| OTA Filename Characteristic     | 0000ee05-0000-1000-8000-00805f9b34fb | Read/Write  | Read/Write the filename of OTA binary file                                                                        | Max Length: 100 | String           |
+| Force OTA Characteristic        | 0000ee06-0000-1000-8000-00805f9b34fb | Write       | Initiate OTA procedure Value: ‘1’ [0x31]                                                                          | 1 byte          | Unsigned Integer |
+| Tare Weight Characteristic      | 0000ee07-0000-1000-8000-00805f9b34fb | Write       | Cancel OTA procedure within 10 seconds of initiation Value: ‘1’ [0x31]                                            | 1 byte          | Unsigned Integer |
+| Connect WiFi Characteristic     | 0000ee08-0000-1000-8000-00805f9b34fb | Write       | Connect to previously configured WiFi credentials. Value: ‘1’ [0x31]                                              | 1 byte          | Unsigned Integer |
+| Software Version Characteristic | 0000ee09-0000-1000-8000-00805f9b34fb | Read        | Read the Software Version in the device                                                                           | -               | String           |
 # Applications
 This weighing scale is designed keeping in mind sharing of data over the internet. So, any application where we need to capture weight of things and maintain a record for any use, we can integrate this device in that system.
