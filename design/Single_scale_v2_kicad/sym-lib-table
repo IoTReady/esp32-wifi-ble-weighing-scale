@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name single_weighing_scale-rescue)(type Legacy)(uri ${KIPRJMOD}/single_weighing_scale-rescue.lib)(options "")(descr ""))
+)

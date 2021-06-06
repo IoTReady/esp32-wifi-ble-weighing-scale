@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name single_weighing_scale-rescue)(type Legacy)(uri /home/ruhan/All_project/weighing_scale_firmware/design/Single_scale_v2_kicad/single_weighing_scale-rescue.lib)(options "")(descr ""))
+)
