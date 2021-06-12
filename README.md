@@ -94,3 +94,5 @@ This application provides a simple method to set/calculate the above mentioned T
 | Software Version Characteristic | 0000ee09-0000-1000-8000-00805f9b34fb | Read        | Read the Software Version in the device                                                                           | -               | String           |
 # Applications
 This weighing scale is designed keeping in mind sharing of data over the internet. So, any application where we need to capture weight of things and maintain a record for any use, we can integrate this device in that system.
+
+![license_info](https://github.com/IoTReady/esp32-wifi-ble-weighing-scale/blob/master/Screenshot_2021-05-27%20Facts%20generator.png "license_info")
