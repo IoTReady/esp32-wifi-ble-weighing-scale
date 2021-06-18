@@ -3,7 +3,7 @@
 This is a weighing scale designed to share data over Wi-Fi using esp32 WROOM32 module.
 For the weighing scale we are using a load cell and measuring the output using a HX711 24-bit ADC designed for weigh scales and industrial control applications to interface directly with a bridge sensor.
 
-The final design and gerber files are available [here](https://github.com/esp32-wifi-ble-weighing-scale/esp32-wifi-ble-weighing-scale/blob/master/design/Single_scale_v3_kicad/single_scale_v3_gerber.zip).
+The final design and gerber files are available [here](https://github.com/IoTReady/esp32-wifi-ble-weighing-scale/blob/master/design/Single_scale_v3_kicad/single_scale_v3_gerber.zip).
 
 # Circuit Design
 ## Power Supply
